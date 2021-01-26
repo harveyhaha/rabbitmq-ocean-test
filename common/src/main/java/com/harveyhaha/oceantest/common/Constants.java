@@ -1,4 +1,4 @@
-package com.harveyhaha.oceantest.agency;
+package com.harveyhaha.oceantest.common;
 
 public class Constants {
     public static final String REGISTER_USER_QUEUE = "register_user_queue";

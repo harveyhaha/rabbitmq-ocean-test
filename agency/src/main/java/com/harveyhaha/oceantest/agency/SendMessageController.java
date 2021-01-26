@@ -1,13 +1,11 @@
 package com.harveyhaha.oceantest.agency;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import com.harveyhaha.oceantest.common.Constants;
+import com.harveyhaha.oceantest.common.RequestBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.amqp.core.Message;
-import org.springframework.amqp.core.MessageBuilder;
-import org.springframework.amqp.core.MessageProperties;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,7 +39,12 @@ public class SendMessageController {
 //                .withBody(messageJsonData.toString().getBytes())
 //                .setContentType(MessageProperties.CONTENT_TYPE_JSON)
 //                .build();
-        rabbitTemplate.convertAndSend(Constants.SMISAS_EXCHANGE, Constants.USER_MANAGE_REGISTER_TOPIC, messageJsonData.toString());
+
+        RequestBean requestBean = new RequestBean(Constants.USER_MANAGE_REGISTER_TOPIC, messageJsonData);
+        String jsonObject = JSON.toJSONString(requestBean);
+        logger.debug("注册json:"+jsonObject);
+//        rabbitTemplate.convertAndSend(Constants.SMISAS_EXCHANGE, Constants.USER_MANAGE_REGISTER_TOPIC, JSON.toJSON(requestBean));
+        rabbitTemplate.convertAndSend(Constants.SMISAS_EXCHANGE, Constants.USER_MANAGE_REGISTER_TOPIC, jsonObject);
         return "ok";
     }
 

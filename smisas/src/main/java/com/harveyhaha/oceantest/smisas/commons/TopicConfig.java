@@ -1,6 +1,6 @@
 package com.harveyhaha.oceantest.smisas.commons;
 
-import com.harveyhaha.oceantest.smisas.MineConstants;
+import com.harveyhaha.oceantest.common.Constants;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.Queue;
@@ -20,12 +20,12 @@ public class TopicConfig {
      */
     @Bean
     public Queue userManageQueue() {
-        return new Queue(MineConstants.USER_MANAGE_TOPIC);
+        return new Queue(Constants.USER_MANAGE_TOPIC);
     }
 
     @Bean
     public Queue userRegisterQueue() {
-        return new Queue(MineConstants.USER_MANAGE_REGISTER_TOPIC);
+        return new Queue(Constants.USER_MANAGE_REGISTER_TOPIC);
     }
 
     /**
@@ -35,17 +35,17 @@ public class TopicConfig {
      */
     @Bean
     TopicExchange smisasExchange() {
-        return new TopicExchange(MineConstants.SMISAS_EXCHANGE);
+        return new TopicExchange(Constants.SMISAS_EXCHANGE);
     }
 
     @Bean
     Binding bindingUserManageExchangeMessage() {
-        return BindingBuilder.bind(userManageQueue()).to(smisasExchange()).with(MineConstants.USER_MANAGE_TOPIC);
+        return BindingBuilder.bind(userManageQueue()).to(smisasExchange()).with(Constants.USER_MANAGE_TOPIC);
     }
 
     @Bean
     Binding bindingUserRegisterExchangeMessage() {
-        return BindingBuilder.bind(userRegisterQueue()).to(smisasExchange()).with(MineConstants.USER_MANAGE_REGISTER_TOPIC);
+        return BindingBuilder.bind(userRegisterQueue()).to(smisasExchange()).with(Constants.USER_MANAGE_REGISTER_TOPIC);
     }
 
 //    @Bean
